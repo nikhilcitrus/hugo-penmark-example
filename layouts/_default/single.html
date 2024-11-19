@@ -1,6 +1,26 @@
 {{ define "main" }}
 {{ $filePath := printf "%s%s" "content/" .File.Path }}
 <header>
+  <div >
+      <h1 class="post-title">
+        {{ .Title }}
+        {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+      </h1>
+      {{- if .Description }}
+      <div class="post-description">
+        {{ .Description }}
+      </div>
+      {{- end }}
+      {{- if not (.Param "hideMeta") }}
+      <div class="post-meta">
+        {{- partial "post_meta.html" . -}}
+        {{- partial "translation_list.html" . -}}
+        {{- partial "edit_post.html" . -}}
+        {{- partial "post_canonical.html" . -}}
+      </div>
+      {{- end }}
+      {{ $filePath := printf "%s%s" "content/" .File.Path }}
+    </div>
  <script 
       type="module" 
       src="https://penmark.appsinprogress.com/dist/PostClient.js"
